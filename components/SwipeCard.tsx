@@ -173,18 +173,6 @@ export default class SwipeCard extends React.Component{
                            source={item.uri} />
                 </Animated.View>
             }
-            return(
-                <Animated.View {...this.PanResponder.panHandlers}
-                               key={item.id}
-                               style={[
-                                   {transform: this.position.getTranslateTransform()},
-                                   {height: DEVICE_HEIGHT - 120, width: DEVICE_WIDTH, padding: 10, position: 'absolute'}
-                               ]}>
-                    <Image style={{flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20}}
-                           source={item.url}/>
-
-                </Animated.View>
-            )
         }).reverse()
     }
 
