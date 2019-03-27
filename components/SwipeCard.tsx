@@ -104,6 +104,75 @@ export default class SwipeCard extends React.Component{
 
     renderUsers = () => {
         return Users.map((item, i) => {
+            if (i < this.state.currentIndex) {
+                return null;
+            } else if (i === this.state.currentIndex) {
+                return (
+                    <Animated.View {...this.PanResponder.panHandlers}
+                                   key={item.id}
+                                   style={[
+                                       this.rotateAndTranslate,
+                                       {height: DEVICE_HEIGHT - 120, width: DEVICE_WIDTH, padding: 10, position: 'absolute'}
+                                   ]}>
+                        <Animated.View style={{
+                            opacity: this.likeOpacity,
+                            transform: [{ rotate: '-30deg' }],
+                            position: 'absolute',
+                            top: 50,
+                            left: 40,
+                            zIndex: 1000}}>
+                            <Text style={{ borderWidth: 1, borderColor: 'green', color: 'green', fontSize: 32, fontWeight: '800', padding: 10 }}>
+                                LIKE
+                            </Text>
+                        </Animated.View>
+                        <Animated.View style={{
+                            opacity: this.dislikeOpacity,
+                            transform: [{ rotate: '30deg' }],
+                            position: 'absolute',
+                            top: 50,
+                            right: 40,
+                            zIndex: 1000 }}>
+                            <Text style={{ borderWidth: 1, borderColor: 'red', color: 'red', fontSize: 32, fontWeight: '800', padding: 10 }}>
+                                NOPE
+                            </Text>
+                        </Animated.View>
+                        <Image style={{flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20}}
+                               source={item.url}/>
+                    </Animated.View>
+                );
+            } else {
+                <Animated.View key={item.id}
+                               style={[{
+                                   opacity: this.nextCardOpacity,
+                                   transform: [{ scale: this.nextCardScale }],
+                                   height: DEVICE_HEIGHT - 120, width: DEVICE_WIDTH, padding: 10, position: 'absolute'
+                                }]}>
+                    <Animated.View style={{
+                        opacity: 0,
+                        transform: [{ rotate: '-30deg' }],
+                        position: 'absolute',
+                        top: 50,
+                        left: 40,
+                        zIndex: 1000}}>
+                        <Text style={{ borderWidth: 1, borderColor: 'green', color: 'green', fontSize: 32, fontWeight: '800', padding: 10 }}>
+                            LIKE
+                        </Text>
+                    </Animated.View>
+                    <Animated.View style={{
+                        opacity: 0,
+                        transform: [{ rotate: '30deg' }],
+                        position: 'absolute',
+                        top: 50,
+                        right: 40,
+                        zIndex: 1000 }}>
+                        <Text style={{ borderWidth: 1, borderColor: 'red', color: 'red', fontSize: 32, fontWeight: '800', padding: 10 }}>
+                            NOPE
+                        </Text>
+                    </Animated.View>
+                    <Image style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 20 }}
+                           source={item.uri} />
+                </Animated.View>
+            }
             return(
                 <Animated.View {...this.PanResponder.panHandlers}
                                key={item.id}
